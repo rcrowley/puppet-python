@@ -5,30 +5,33 @@ class python {
 }
 
 class python::python_3_1 {
-	sourceinstall { "Python-3.1":
-		module => "python",
+	$version = "3.1"
+	sourceinstall { "Python-$version":
 		package => "Python",
-		version => "3.1",
+		version => "$version",
+		tarball => "puppet://$servername/python/Python-$version.tar.bz2",
 		flags => "",
 		bin => "python",
 	}
 }
 
 class python::python_2_6_2 {
-	sourceinstall { "Python-2.6.2":
-		module => "python",
+	$version = "2.6.2"
+	sourceinstall { "Python-$version":
 		package => "Python",
-		version => "2.6.2",
+		version => "$version",
+		tarball => "puppet://$servername/python/Python-$version.tar.bz2",
 		flags => "",
 		bin => "python",
 	}
 }
 
 class python::python_2_5_4 {
-	sourceinstall { "Python-2.5.4":
-		module => "python",
+	$version = "2.5.4"
+	sourceinstall { "Python-$version":
 		package => "Python",
-		version => "2.5.4",
+		version => "$version",
+		tarball => "puppet://$servername/python/Python-$version.tar.bz2",
 		flags => "",
 		bin => "python",
 	}
