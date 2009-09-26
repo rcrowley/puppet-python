@@ -51,15 +51,20 @@ class python {
 class python::python_3_1 {
 	$version = "3.1"
 	sourceinstall { "Python-$version":
+		before => File["/opt/Python-$version/bin/python"],
 		package => "Python",
 		version => "$version",
 		tarball => "puppet://$servername/python/Python-$version.tar.bz2",
 		flags => "",
-		bin => "python",
+		bin => "python3",
 	}
 	pipinstall { "pip-0.4-$version":
 		version => "$version",
 		bin => "python3",
+	}
+	file { "/opt/Python-$version/bin/python":
+		require => Sourceinstall["Python-$version"],
+		ensure => "python3",
 	}
 }
 
