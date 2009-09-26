@@ -1,0 +1,19 @@
+#!/bin/sh
+
+if [ -z "$1" ]; then
+	echo "Usage: $(basename $0) <python-path> >~/.profile" >&2
+	echo "       eval \$($(basename $0) <python-path>)" >&2
+	exit 1
+fi
+
+if [ -x "$1/python" ]; then
+	export PATH="$1"
+elif [ -x "$1/bin/python" ]; then
+	export PATH="$1/bin"
+elif [ -x "/opt/$1/bin/python" ]; then
+	export PATH="/opt/$1/bin"
+elif [ -x "/opt/Python-$1/bin/python" ]; then
+	export PATH="/opt/Python-$1/bin"
+else
+	echo "[pick-python] no python found in $1" >&2
+fi

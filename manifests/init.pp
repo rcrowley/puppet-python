@@ -24,7 +24,6 @@ class python {
 		source => "puppet://$servername/python/pip-0.4.tar.gz",
 		ensure => present,
 	}
-
 	exec { "extract-pip-0.4":
 		require => File["/opt/pip-0.4.tar.gz"],
 		before => [
@@ -37,13 +36,16 @@ class python {
 		creates => "/root/pip-0.4",
 		#unless => "UNLESS WHAT???",
 	}
-
 	# If anything happened in order, each pipinstall would go here
-
 	exec { "remove-pip-0.4":
 		cwd => "/root",
 		command => "rm -rf pip-0.4",
 		onlyif => "test -d /root/pip-0.4",
+	}
+
+	file { "/usr/local/bin/pick-python":
+		source => "puppet://$servername/python/pick-python",
+		ensure => present,
 	}
 
 }
