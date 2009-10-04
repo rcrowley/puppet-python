@@ -1,6 +1,6 @@
 define pipinstall($version, $bin) {
-	exec { "install-pip-0.4-$version":
-		require => Exec["extract-pip-0.4"],
+	exec { "pipinstall-exec-$version":
+		require => Exec["pipinstall-extract"],
 		cwd => "/root/pip-0.4",
 		command => "/opt/Python-$version/bin/$bin setup.py install",
 		creates => "/opt/Python-$version/bin/pip",
@@ -21,7 +21,7 @@ class python {
 		source => "puppet://$servername/python/pip-0.4.tar.gz",
 		ensure => present,
 	}
-	exec { "extract-pip-0.4":
+	exec { "pipinstall-extract":
 		require => File["/root/pip-0.4.tar.gz"],
 		cwd => "/root",
 		command => "tar xf /root/pip-0.4.tar.gz",
@@ -29,11 +29,11 @@ class python {
 		#unless => "UNLESS WHAT???",
 	}
 	# If anything happened in order, each pipinstall would go here
-	exec { "remove-pip-0.4":
+	exec { "pipinstall-remove":
 		require => [
-			Pipinstall["pip-0.4-3.1"],
-			Pipinstall["pip-0.4-2.6.2"],
-			Pipinstall["pip-0.4-2.5.4"]
+			Pipinstall["pipinstall-3.1"],
+			Pipinstall["pipinstall-2.6.2"],
+			Pipinstall["pipinstall-2.5.4"]
 		],
 		command => "rm -rf /root/pip-0.4*",
 	}
@@ -48,14 +48,11 @@ class python {
 class python::python_3_1 {
 	$version = "3.1"
 	sourceinstall { "Python-$version":
-		before => File["/opt/Python-$version/bin/python"],
-		package => "Python",
-		version => "$version",
-		tarball => "puppet://$servername/python/Python-$version.tar.bz2",
+		tarball => "http://python.org/ftp/python/$version/Python-$version.tar.bz2",
+		prefix => "/opt/Python-$version",
 		flags => "",
-		bin => "python3",
 	}
-	pipinstall { "pip-0.4-$version":
+	pipinstall { "pipinstall-$version":
 		version => "$version",
 		bin => "python3",
 	}
@@ -68,13 +65,11 @@ class python::python_3_1 {
 class python::python_2_6_2 {
 	$version = "2.6.2"
 	sourceinstall { "Python-$version":
-		package => "Python",
-		version => "$version",
-		tarball => "puppet://$servername/python/Python-$version.tar.bz2",
+		tarball => "http://python.org/ftp/python/$version/Python-$version.tar.bz2",
+		prefix => "/opt/Python-$version",
 		flags => "",
-		bin => "python",
 	}
-	pipinstall { "pip-0.4-$version":
+	pipinstall { "pipinstall-$version":
 		version => "$version",
 		bin => "python",
 	}
@@ -83,13 +78,11 @@ class python::python_2_6_2 {
 class python::python_2_5_4 {
 	$version = "2.5.4"
 	sourceinstall { "Python-$version":
-		package => "Python",
-		version => "$version",
-		tarball => "puppet://$servername/python/Python-$version.tar.bz2",
+		tarball => "http://python.org/ftp/python/$version/Python-$version.tar.bz2",
+		prefix => "/opt/Python-$version",
 		flags => "",
-		bin => "python",
 	}
-	pipinstall { "pip-0.4-$version":
+	pipinstall { "pipinstall-$version":
 		version => "$version",
 		bin => "python",
 	}
