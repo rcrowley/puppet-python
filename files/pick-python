@@ -1,7 +1,7 @@
 #!/bin/sh
 
 if [ -z "$1" ]; then
-	echo "Usage: $(basename $0) <python-path> >~/.profile" >&2
+	echo "Usage: $(basename $0) <python-path> >>~/.profile" >&2
 	echo "       eval \$($(basename $0) <python-path>)" >&2
 	exit 1
 fi
