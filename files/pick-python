@@ -7,13 +7,13 @@ if [ -z "$1" ]; then
 fi
 
 if [ -x "$1/python" ]; then
-	export PATH="$1"
+	echo "export PATH=\"$1:\$PATH\""
 elif [ -x "$1/bin/python" ]; then
-	export PATH="$1/bin"
+	echo "export PATH=\"$1/bin:\$PATH\""
 elif [ -x "/opt/$1/bin/python" ]; then
-	export PATH="/opt/$1/bin"
+	echo "export PATH=\"/opt/$1/bin:\$PATH\""
 elif [ -x "/opt/Python-$1/bin/python" ]; then
-	export PATH="/opt/Python-$1/bin"
+	echo "export PATH=\"/opt/Python-$1/bin:\$PATH\""
 else
 	echo "[pick-python] no python found in $1" >&2
 fi
