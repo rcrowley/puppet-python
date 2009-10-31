@@ -33,6 +33,7 @@ define pip($package, $version) {
 	exec { "pip-exec-$package-$version":
 		require => Pipinstall["pipinstall-$version"],
 		command => "/opt/Python-$version/bin/pip install $package",
+		timeout => "-1",
 	}
 }
 
