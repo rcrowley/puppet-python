@@ -102,6 +102,11 @@ class python::python_2_6_2 {
 		package => "virtualenv",
 		version => "$version",
 	}
+	pip { "pysqlite-$version":
+		require => Package["libsqlite3-dev"],
+		package => "pysqlite",
+		version => "$version",
+	}
 }
 
 class python::python_2_5_4 {
@@ -122,6 +127,11 @@ class python::python_2_5_4 {
 	}
 	pip { "virtualenv-$version":
 		package => "virtualenv",
+		version => "$version",
+	}
+	pip { "pysqlite-$version":
+		require => Package["libsqlite3-dev"],
+		package => "pysqlite",
 		version => "$version",
 	}
 }
